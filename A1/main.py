@@ -92,7 +92,7 @@ def check(result_form,form1,form2):
 if __name__ == "__main__":
 
     TEST = True
-    DEBUG = True
+    DEBUG = False
 
     formula_file = sys.argv[1]
     proof_file = sys.argv[2]
