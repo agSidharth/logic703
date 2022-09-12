@@ -84,9 +84,7 @@ def check(result_form,form1,form2):
     
     if(DEBUG): print("Resolution: "+str(resolution))
 
-    if(resolution==0 and len(finalSet)==len(dictR)):
-        return True
-    elif (resolution==0):
+    if(resolution==0):
         return False
     
     if (-1*resolution in finalSet) and (-1*resolution not in dictR) and (len(finalSet) == len(dictR) + 2):
