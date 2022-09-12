@@ -39,54 +39,60 @@ def returnSet(formula):
     thisSet = {}
 
     for prop in formula:
+        """
         if ((-1*prop) in thisSet):
             thisSet.clear()
             break
+        """
         thisSet[prop] = 1
     
     return thisSet
 
 def check(result_form,form1,form2):
-    if(DEBUG): print("New operation")
 
     dict1 = returnSet(form1)
     dict2 = returnSet(form2)
     dictR = returnSet(result_form)
 
-    if(DEBUG): print("1: "+str(dict1))
-    if(DEBUG): print("2: "+str(dict2))
-    if(DEBUG): print("R: "+str(dictR))
+    if(DEBUG):
+        print("New operation")
+        print("1: "+str(dict1))
+        print("2: "+str(dict2))
+        print("R: "+str(dictR))
 
-    resolution = -1
+    finalSet = {}
     for key in dict1:
-        if (((-1*key) in dict2) and resolution==-1):
+        finalSet[key] = 1
+    for key in dict2:
+        finalSet[key] = 1
+    
+    if(DEBUG): print("finalSet: "+str(finalSet))
+
+    resolution = 0
+
+    # all keys of dictR will be in finalSetR before resolution.
+    for key in dictR:
+        if not (key in finalSet):
+            return False
+
+    # the same key will not again come, either the negative of key will come or some other element will not be present.
+    for key in finalSet:
+        if (not (key in dictR)) and resolution==0:
             resolution = key
-        elif(((-1*key) in dict2)):
+        elif (not (key in dictR)) and abs(key)!=abs(resolution):
             return False
     
     if(DEBUG): print("Resolution: "+str(resolution))
 
-    final_form = []
-    for key in dict1:
-        if(abs(key)!=abs(resolution)):
-            final_form.append(key)
-    
-    for key in dict2:
-        if(abs(key)!=abs(resolution)):
-            final_form.append(key)
-    
-    finalSet = returnSet(final_form)
-    
-    if(DEBUG): print("finalSet: "+str(finalSet))
-
-    if(len(finalSet)!=len(dictR)):
+    if(resolution==0 and len(finalSet)==len(dictR)):
+        return True
+    elif (resolution==0):
         return False
     
-    for key in finalSet:
-        if not (key in dictR):
-            return False
-    
-    return True
+    if (-1*resolution in finalSet) and (-1*resolution not in dictR) and (len(finalSet) == len(dictR) + 2):
+        return True
+
+    return False
 
 
 if __name__ == "__main__":
@@ -126,6 +132,11 @@ if __name__ == "__main__":
             break
     
     if(DEBUG): print(proof_dict)
+    
+    if(TEST):
+        final_length = len(returnSet(proof_dict[proof_idx]))
+        if final_length!=0:
+            TEST = False
 
     if(TEST):
         print("correct")
