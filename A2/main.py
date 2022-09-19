@@ -2,6 +2,8 @@ import sys
 import re
 import math
 
+DEBUG = False
+
 # for reading the formula file to return a formula dictionary..
 def readFormulaFile(formula_file):
     text = open(formula_file,"r")
@@ -156,15 +158,8 @@ def recursive(this_dict,out_dict,formula_dict,proof_dict,proofNum,lastNum):
     
     return False
     
-
-if __name__ == "__main__":
-
+def solve(formula_file,proof_file,outputFileName):
     TEST = False
-    DEBUG = False
-
-    formula_file = sys.argv[1]
-    proof_file = sys.argv[2]
-    outputFileName = "output.txt"
 
     formula_dict = readFormulaFile(formula_file)
     if(DEBUG): print("FORMULA: "+str(formula_dict))
@@ -203,3 +198,8 @@ if __name__ == "__main__":
             outFile.write("\n")
         
         outFile.close()
+
+
+if __name__ == "__main__":
+    
+    solve(sys.argv[1],sys.argv[2],sys.argv[3])
