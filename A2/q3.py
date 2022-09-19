@@ -158,7 +158,10 @@ def recursive(this_dict,out_dict,formula_dict,proof_dict,proofNum,lastNum):
     
     return False
     
-def solve(formula_file,proof_file,outputFileName):
+def solve(formula_file,modified_proof_file,ouput_file):
+    proof_file = modified_proof_file
+    outputFileName = ouput_file
+
     TEST = False
 
     formula_dict = readFormulaFile(formula_file)
