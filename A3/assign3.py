@@ -149,11 +149,13 @@ def solve(inputString, n):
 			return "not horn"
 	elif(n==2):
 		gDict,num_props,num_clauses = returnG(formula_dict)
-		print("c 2-CNF formula which is sat iff input is renamable Horn")
-		print("p cnf "+str(num_props)+" "+str(num_clauses))
+
+		final_ans = "c 2-CNF formula which is sat iff input is renamable Horn\n"
+		final_ans += "p cnf "+str(num_props)+" "+str(num_clauses) + "\n"
+
 		for gIdx in gDict.keys():
-			print(str(gDict[gIdx][0])+" "+str(gDict[gIdx][1])+" 0")
-		return ""
+			final_ans += str(gDict[gIdx][0])+" "+str(gDict[gIdx][1])+" 0" + "\n"
+		return final_ans
 	elif(n==3):
 		if(checkHorn(formula_dict)):
 			return "already horn"
@@ -173,10 +175,11 @@ def solve(inputString, n):
 			return "not renamable"
 
 		assignment.sort()
+		final_ans = ""
 		for assi in assignment:
-			print(str(assi)+" ",end = "")
+			final_ans += str(assi) + " "
 
-		return "" 
+		return final_ans
 	return "nil"
 
 # Main function: do NOT change this.
